@@ -1,0 +1,63 @@
+name: Publish Python Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine
+
+    - name: Check for [skip ci] in commit message
+      id: skip_check
+      run: |
+        if [[ $(git log -1 --pretty=%B) == *"[skip ci]"* ]]; then
+          echo "Found [skip ci] in commit message, skipping the workflow."
+          exit 0
+        fi
+
+    - name: Increment version
+      run: |
+        python increment_version.py
+
+    - name: Build the package
+      run: |
+        python setup.py sdist bdist_wheel
+
+    - name: Publish to PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        python -m twine upload dist/*
+
+    - name: Configure Git
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+
+    - name: Commit changes
+      run: |
+        git add setup.py
+        git commit -m "Increment version to ${{ steps.increment_version.outputs.new_version }} [skip ci]"
+
+    - name: Push changes
+      run: |
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
