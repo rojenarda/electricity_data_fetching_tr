@@ -1,0 +1,5 @@
+numpy
+requests
+pandas
+forex-python
+workalendar
