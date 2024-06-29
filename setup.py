@@ -24,5 +24,9 @@ setup(
     ],
     url='https://github.com/rojenarda/electricity_data_fetching_tr',
     long_description=long_description,
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
+    project_urls={
+        'Bug Tracker': 'https://github.com/yourusername/electricity_data_fetching_tr/issues',
+        'Source Code': 'https://github.com/yourusername/electricity_data_fetching_tr'
+    }
 )
