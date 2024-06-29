@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'electricity_data_fetching_tr/**'
 
 jobs:
   build-and-publish:
