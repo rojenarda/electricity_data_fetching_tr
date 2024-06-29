@@ -1,5 +1,8 @@
 from setuptools import setup, find_packages
 
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name='electricity_data_fetching_tr',
     version='0.1.1',
@@ -19,5 +22,7 @@ setup(
     classifiers=[
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
     ],
-    url='https://github.com/rojenarda/electricity_data_fetching_tr'
+    url='https://github.com/rojenarda/electricity_data_fetching_tr',
+    long_description=long_description,
+    long_description_content_type='text/markdown'
 )
