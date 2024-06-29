@@ -48,8 +48,8 @@ jobs:
 
     - name: Configure Git
       run: |
-        git config --global user.name 'github-actions'
-        git config --global user.email 'github-actions@github.com'
+        git config --global user.name 'rojenarda'
+        git config --global user.email 'sesen19@itu.edu.tr'
 
     - name: Commit changes
       run: |
